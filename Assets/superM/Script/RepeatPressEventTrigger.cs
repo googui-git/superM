@@ -18,21 +18,21 @@ public class RepeatPressEventTrigger:MonoBehaviour,IPointerEnterHandler,IPointer
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
-		GameM.Instance.setLog ("OnPointerEnter:" + name);
+		Main.Instance.setLog ("OnPointerEnter:" + name);
 
 		if (name.Equals ("Up")) {
-			GameM.Instance.MoveTop ();
+			Main.Instance.MoveTop ();
 		} else if (name.Equals ("Down")) {
-			GameM.Instance.MoveDown ();
+			Main.Instance.MoveDown ();
 		} else if (name.Equals ("Left")) {
-			GameM.Instance.MoveLeft ();
+			Main.Instance.MoveLeft ();
 		} else if (name.Equals ("Right")) {
-			GameM.Instance.MoveRight ();
+			Main.Instance.MoveRight ();
 		}
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-		GameM.Instance.setLog ("OnPointerExit:" + name);
+		Main.Instance.setLog ("OnPointerExit:" + name);
 	}
 }

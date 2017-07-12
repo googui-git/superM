@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\superM\Script\Main.cs">
+    <Files>
+      <File FileName="Assets\superM\Script\RepeatPressEventTrigger.cs" Line="21" Column="23" />
+      <File FileName="Assets\superM\Script\Main.cs" Line="19" Column="26" />
+      <File FileName="Assets\superM\Script\GameM.cs" Line="3" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

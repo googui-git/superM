@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
+	public GameObject logGB;
+
 	public GameObject player;
 
 	private float speed = 0.5f;
@@ -13,6 +16,7 @@ public class Main : MonoBehaviour
 	public GameObject woodPrefab;
 	public GameObject[] bgTile;
 
+	private static Text log;
 	private int playerX;
 	private int playerY;
 	private float tileSize;
@@ -45,9 +49,24 @@ public class Main : MonoBehaviour
 
 	private GameObject[,] levelObj;
 
+	static Main instance;
+
+	public static Main Instance {
+		get {
+			return instance;
+		}
+	}
+
+	void Awake ()
+	{
+		instance = this;
+	}
+
 	void Start ()
 	{
-		
+	
+		log = logGB.GetComponent<Text> ();
+
 		tileXSize = tempLevel [0].Length;
 		tileYSize = tempLevel.Length;
 		level = new char[tileYSize, tileXSize];
@@ -165,5 +184,10 @@ public class Main : MonoBehaviour
 		player.transform.DOMoveX (player.transform.position.x + tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));
+	}
+
+	public void setLog (string text)
+	{
+		log.text = text;
 	}
 }
