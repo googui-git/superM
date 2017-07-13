@@ -64,8 +64,6 @@ public class CollisionDetector : MonoBehaviour
 			duration = distanceX / speed;
 		}
 
-		Debug.Log (transform.position + "|" + to);
-
 		transform.DOMove (to, duration).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));

@@ -127,13 +127,14 @@ public class Main : MonoBehaviour
 
 	public void Joystick (Vector2 axis)
 	{
-		if (axis.y > 0 && axis.y > axis.x) {
+		Debug.Log (axis);
+		if (axis.y > 0 && Mathf.Abs(axis.y) > Mathf.Abs(axis.x)) {
 			MoveTop ();
-		} else if (axis.y < 0 && axis.y < axis.x) {
+		} else if (axis.y < 0 && Mathf.Abs(axis.y) > Mathf.Abs(axis.x)) {
 			MoveDown ();
-		} else if (axis.x < 0 && axis.x < axis.y) {
+		} else if (axis.x < 0 && Mathf.Abs(axis.y) < Mathf.Abs(axis.x)) {
 			MoveLeft ();
-		} else if (axis.x > 0 && axis.x > axis.y) {
+		} else if (axis.x > 0 && Mathf.Abs(axis.y) < Mathf.Abs(axis.x)) {
 			MoveRight ();
 		}
 	}
