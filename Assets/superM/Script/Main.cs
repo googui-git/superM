@@ -10,7 +10,7 @@ public class Main : MonoBehaviour
 	public GameObject player;
 
 	private float speed = 0.5f;
-	private bool isMove = false;
+	public static bool isMove = false;
 
 	public GameObject stonePrefab;
 	public GameObject woodPrefab;
@@ -127,13 +127,15 @@ public class Main : MonoBehaviour
 
 	public void MoveTop ()
 	{
+		if (isMove) {
+			return;
+		}
 		char c = level [playerY + 1, playerX];
 		if (c == 's' || c == 'w') {
 			return;
 			//Destroy (levelObj [playerY, playerX - 1]);
 		}
 		playerY++;
-		Debug.Log ("MoveTop");
 		isMove = true;
 		player.transform.DOMoveY (player.transform.position.y + tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
@@ -142,13 +144,15 @@ public class Main : MonoBehaviour
 
 	public void MoveDown ()
 	{
+		if (isMove) {
+			return;
+		}
 		char c = level [playerY - 1, playerX];
 		if (c == 's' || c == 'w') {
 			return;
 			//Destroy (levelObj [playerY, playerX - 1]);
 		}
 		playerY--;
-		Debug.Log ("MoveDown");
 		isMove = true;
 		player.transform.DOMoveY (player.transform.position.y - tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
@@ -157,14 +161,15 @@ public class Main : MonoBehaviour
 
 	public void MoveLeft ()
 	{
-
+		if (isMove) {
+			return;
+		}
 		char c = level [playerY, playerX - 1];
 		if (c == 's' || c == 'w') {
 			return;
 			//Destroy (levelObj [playerY, playerX - 1]);
 		}
 		playerX--;
-		Debug.Log ("MoveLeft");
 		isMove = true;
 		player.transform.DOMoveX (player.transform.position.x - tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
@@ -173,13 +178,15 @@ public class Main : MonoBehaviour
 
 	public void MoveRight ()
 	{
+		if (isMove) {
+			return;
+		}
 		char c = level [playerY, playerX + 1];
 		if (c == 's' || c == 'w') {
 			return;
 			//Destroy (levelObj [playerY, playerX - 1]);
 		}
 		playerX++;
-		Debug.Log ("MoveRight");
 		isMove = true;
 		player.transform.DOMoveX (player.transform.position.x + tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
