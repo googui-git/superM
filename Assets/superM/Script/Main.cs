@@ -125,6 +125,19 @@ public class Main : MonoBehaviour
 		}
 	}
 
+	public void Joystick (Vector2 axis)
+	{
+		if (axis.y > 0 && axis.y > axis.x) {
+			MoveTop ();
+		} else if (axis.y < 0 && axis.y < axis.x) {
+			MoveDown ();
+		} else if (axis.x < 0 && axis.x < axis.y) {
+			MoveLeft ();
+		} else if (axis.x > 0 && axis.x > axis.y) {
+			MoveRight ();
+		}
+	}
+
 	public void MoveTop ()
 	{
 		if (isMove) {
