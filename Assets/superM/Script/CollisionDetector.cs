@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class CollisionDetector : MonoBehaviour
 {
-	public float MovingForce;
-	Vector2 StartPoint1;
-	Vector2 StartPoint2;
+	private float speed = 0.5f;
+	private Vector2 startPoint1;
+	private Vector2 startPoint2;
 
-	RaycastHit2D HitInfo;
-	float radius;
-	Vector2 a = new Vector2 (-1f, 1f);
+	private RaycastHit2D hit;
+	private float radius;
+	private Vector2 a = new Vector2 (-1f, 1f);
+
+	private bool isMove = false;
 
 	void Start ()
 	{
@@ -21,30 +24,51 @@ public class CollisionDetector : MonoBehaviour
 	void Update ()
 	{
 
-		StartPoint1 = new Vector2 (transform.position.x, transform.position.y + radius * a.y);
-		StartPoint2 = new Vector2 (transform.position.x + radius * a.x, transform.position.y);
+		startPoint1 = new Vector2 (transform.position.x, transform.position.y + radius * a.y);
+		startPoint2 = new Vector2 (transform.position.x + radius * a.x, transform.position.y);
 
-		Debug.DrawRay (StartPoint1, a, Color.red);
-		Debug.DrawRay (StartPoint2, a, Color.red);
+		Debug.DrawRay (startPoint1, a * 10f, Color.red);
+		Debug.DrawRay (startPoint2, a * 10f, Color.red);
 
-		if (!IsCollidingVertically ()) {
-			transform.Translate (a * MovingForce * Time.deltaTime);
-		}
+		Move ();
+
+		//if (!IsCollidingVertically ()) {
+		//transform.Translate (a * MovingForce * Time.deltaTime);
+		//}
 	}
 
-	bool IsCollidingVertically ()
+	void Move ()
 	{
-		HitInfo = Physics2D.Raycast (StartPoint1, a, 0.0000000000001f);
-		if (HitInfo != null && HitInfo.collider != null) {
-			a.Set(a.x, -a.y);
-			return true;
+		if (isMove) {
+			return;
+		}
+		isMove = true;
+
+		float distance = 0;
+		Vector2 to = Vector2.zero;
+		Vector2 temp = Vector2.zero;
+
+		hit = Physics2D.Raycast (startPoint1, a, 100f);
+		if (hit != null && hit.collider != null) {
+			distance = Vector2.Distance (startPoint1, hit.point);
+			temp = new Vector2 (a.x, -a.y);
+			to = hit.point + temp * radius;
 		}
 
-		HitInfo = Physics2D.Raycast (StartPoint2, a, 0.0000000000001f);
-		if (HitInfo != null && HitInfo.collider != null) {
-			a.Set(-a.x, a.y);
-			return true;
+		hit = Physics2D.Raycast (startPoint2, a, 100f);
+		if (hit != null && hit.collider != null) {
+			if (Vector2.Distance (startPoint2, hit.point) < distance) {
+				temp = new Vector2 (-a.x, a.y);
+				to = hit.point + temp * radius;
+			}
 		}
-		return false;
+
+		a = temp;
+
+		Debug.Log (transform.position + "|" + to);
+
+		transform.DOMove (to, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
+			isMove = false;
+		}));
 	}
 }

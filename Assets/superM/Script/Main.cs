@@ -10,7 +10,7 @@ public class Main : MonoBehaviour
 	public GameObject player;
 
 	private float speed = 0.5f;
-	public static bool isMove = false;
+	public bool isMove = false;
 
 	public GameObject stonePrefab;
 	public GameObject woodPrefab;

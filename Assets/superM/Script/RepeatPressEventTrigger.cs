@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 
-public class RepeatPressEventTrigger:MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class RepeatPressEventTrigger:MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 {
 
 	void Start ()
@@ -16,9 +16,9 @@ public class RepeatPressEventTrigger:MonoBehaviour,IPointerEnterHandler,IPointer
 		
 	}
 
-	public void OnPointerEnter (PointerEventData eventData)
+	public void OnPointerDown (PointerEventData eventData)
 	{
-		Main.Instance.setLog ("OnPointerEnter:" + name);
+		Main.Instance.setLog ("OnPointerDown:" + name);
 
 		if (name.Equals ("Up")) {
 			Main.Instance.MoveTop ();
@@ -31,8 +31,8 @@ public class RepeatPressEventTrigger:MonoBehaviour,IPointerEnterHandler,IPointer
 		}
 	}
 
-	public void OnPointerExit (PointerEventData eventData)
+	public void OnPointerUp (PointerEventData eventData)
 	{
-		Main.Instance.setLog ("OnPointerExit:" + name);
+		Main.Instance.setLog ("OnPointerUp:" + name);
 	}
 }
