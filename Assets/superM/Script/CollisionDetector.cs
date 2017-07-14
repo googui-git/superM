@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class CollisionDetector : MonoBehaviour
 {
-	private float speed = 3f;
+	private float speed = 5f;
 	private Vector2 startPointX;
 	private Vector2 startPointY;
 

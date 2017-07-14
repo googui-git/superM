@@ -3,8 +3,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{3D212ABC-D8CE-F1D3-9764-C9E1D6E77A0B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -33,45 +34,45 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:\Program Files\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>D:/Program Files/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:\Program Files\Editor\Data\Managed\UnityEditor.dll</HintPath>
+      <HintPath>D:/Program Files/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Joystick\Scripts\Joystick.cs" />
-    <Compile Include="Assets\Joystick\Scripts\MoveObject.cs" />
-    <Compile Include="Assets\superM\Script\CollisionDetector.cs" />
-    <Compile Include="Assets\superM\Script\Main.cs" />
-    <Compile Include="Assets\superM\Script\RepeatPressEventTrigger.cs" />
-    <Compile Include="Assets\superM\Script\SmoothFollow2.cs" />
-    <None Include="Assets\DOTween\DOTween43.xml" />
-    <None Include="Assets\DOTween\DOTween50.xml" />
-    <None Include="Assets\DOTween\readme.txt" />
-    <None Include="Assets\DOTween\DOTween46.xml" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:\Program Files\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>D:\Program Files\Editor\Data\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>E:\unity\project\git\m\Assets\DOTween\DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>E:\unity\project\git\m\Assets\DOTween\DOTween43.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween46">
-      <HintPath>E:\unity\project\git\m\Assets\DOTween\DOTween46.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>E:\unity\project\git\m\Assets\DOTween\DOTween50.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Joystick\Scripts\Joystick.cs" />
+     <Compile Include="Assets\Joystick\Scripts\MoveObject.cs" />
+     <Compile Include="Assets\superM\Script\CollisionDetector.cs" />
+     <Compile Include="Assets\superM\Script\Main.cs" />
+     <Compile Include="Assets\superM\Script\RepeatPressEventTrigger.cs" />
+     <Compile Include="Assets\superM\Script\SmoothFollow2.cs" />
+     <None Include="Assets\DOTween\DOTween43.xml" />
+     <None Include="Assets\DOTween\DOTween50.xml" />
+     <None Include="Assets\DOTween\readme.txt" />
+     <None Include="Assets\DOTween\DOTween46.xml" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Program Files/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>D:/Program Files/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>E:/unity/project/git/m/Assets/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>E:/unity/project/git/m/Assets/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>E:/unity/project/git/m/Assets/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>E:/unity/project/git/m/Assets/DOTween/DOTween50.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -81,4 +82,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>
