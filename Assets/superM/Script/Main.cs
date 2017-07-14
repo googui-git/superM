@@ -16,6 +16,13 @@ public class Main : MonoBehaviour
 	public GameObject woodPrefab;
 	public GameObject[] bgTile;
 
+	Animator anim;
+	private int upAnimation = Animator.StringToHash ("player_up");
+	private int downAnimation = Animator.StringToHash ("player_down");
+	private int leftAnimation = Animator.StringToHash ("player_left");
+	private int rightAnimation = Animator.StringToHash ("player_right");
+	private int playAnimation;
+
 	private static Text log;
 	private int playerX;
 	private int playerY;
@@ -23,26 +30,39 @@ public class Main : MonoBehaviour
 	private int tileXSize;
 	private int tileYSize;
 	private string[] tempLevel = new string[] {
-		"sssssssssssssssssssssssssssssssssssssss",
-		"s000000000000000000000000000000w000000s",
-		"swwwwwwwwwwwwwwwwwwwwwwwwwwwwwww000000s",
-		"s000000000000000000000000000000w000000s",
-		"s000sssss00sssss0sssssss0000000w000000s",
-		"s000s000s00s000s0w00000s0000000w000000s",
-		"s000s0w0swws0w0sww0ws00w0000000w000000s",
-		"s000s000s00s000s0w0ws00wsssss00w000000s",
-		"s000sssss00sssss0w0ws00ws000s0sws00000s",
-		"s000000000x000000w0wssww0000swsws00000s",
-		"swwwwwwwwwwwwwww0w00sswwsssss0sws00000s",
-		"s0000000000000000w0wssww0000swsws00000s",
-		"s000sssss00sssss0w00s00ws000s0sws00000s",
-		"s000s000s00s000s0w0ws00wsssss00w000000s",
-		"s000s0w0swws0w0sww00s00w0000000w000000s",
-		"s000s000s00s000s0w00000s0000000w000000s",
-		"s000sssss00sssss0sssssss0000000w000000s",
-		"s000000000000000000000000000000w000000s",
-		"s000000000000000000000000000000w000000s",
-		"sssssssssssssssssssssssssssssssssssssss"
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssss000000000000000000000000000000w000000sssssssssssssss",
+		"ssssssssssssssswwwwwwwwwwwwwwwwwwwwwwwwwwwwwww000000sssssssssssssss",
+		"sssssssssssssss000000000000000000000000000000w000000sssssssssssssss",
+		"sssssssssssssss000sssss00sssss0sssssss0000000w000000sssssssssssssss",
+		"sssssssssssssss000s000s00s000s0w00000s0000000w000000sssssssssssssss",
+		"sssssssssssssss000s0w0swws0w0sww0ws00w0000000w000000sssssssssssssss",
+		"sssssssssssssss000s000s00s000s0w0ws00wsssss00w000000sssssssssssssss",
+		"sssssssssssssss000sssss00sssss0w0ws00ws000s0sws00000sssssssssssssss",
+		"sssssssssssssss000000000x000000w0wssww0000swsws00000sssssssssssssss",
+		"ssssssssssssssswwwwwwwwwwwwwww0w00sswwsssss0sws00000sssssssssssssss",
+		"sssssssssssssss0000000000000000w0wssww0000swsws00000sssssssssssssss",
+		"sssssssssssssss000sssss00sssss0w00s00ws000s0sws00000sssssssssssssss",
+		"sssssssssssssss000s000s00s000s0w0ws00wsssss00w000000sssssssssssssss",
+		"sssssssssssssss000s0w0swws0w0sww00s00w0000000w000000sssssssssssssss",
+		"sssssssssssssss000s000s00s000s0w00000s0000000w000000sssssssssssssss",
+		"sssssssssssssss000sssss00sssss0sssssss0000000w000000sssssssssssssss",
+		"sssssssssssssss000000000000000000000000000000w000000sssssssssssssss",
+		"sssssssssssssss000000000000000000000000000000w000000sssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+		"sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
 	};
 
 	private char[,] level;
@@ -66,6 +86,7 @@ public class Main : MonoBehaviour
 	{
 	
 		log = logGB.GetComponent<Text> ();
+		anim = player.GetComponent<Animator> ();
 
 		tileXSize = tempLevel [0].Length;
 		tileYSize = tempLevel.Length;
@@ -80,7 +101,7 @@ public class Main : MonoBehaviour
 		}
 			
 		SpriteRenderer spriteRenderer = stonePrefab.GetComponent<SpriteRenderer> ();
-		tileSize = 0.7f;//spriteRenderer.bounds.size.x;
+		tileSize = spriteRenderer.bounds.size.x;
 
 		for (int y = 0; y < tileYSize; y++) {
 			for (int x = 0; x < tileXSize; x++) {
@@ -115,7 +136,7 @@ public class Main : MonoBehaviour
 			return;
 		}
 		if (Input.GetKey (KeyCode.UpArrow) && !Input.GetKeyUp (KeyCode.UpArrow)) {
-			MoveTop ();
+			MoveUp ();
 		} else if (Input.GetKey (KeyCode.DownArrow) && !Input.GetKeyUp (KeyCode.DownArrow)) {
 			MoveDown ();
 		} else if (Input.GetKey (KeyCode.LeftArrow) && !Input.GetKeyUp (KeyCode.LeftArrow)) {
@@ -129,7 +150,7 @@ public class Main : MonoBehaviour
 	{
 		Debug.Log (axis);
 		if (axis.y > 0 && Mathf.Abs(axis.y) > Mathf.Abs(axis.x)) {
-			MoveTop ();
+			MoveUp ();
 		} else if (axis.y < 0 && Mathf.Abs(axis.y) > Mathf.Abs(axis.x)) {
 			MoveDown ();
 		} else if (axis.x < 0 && Mathf.Abs(axis.y) < Mathf.Abs(axis.x)) {
@@ -139,7 +160,7 @@ public class Main : MonoBehaviour
 		}
 	}
 
-	public void MoveTop ()
+	public void MoveUp ()
 	{
 		if (isMove) {
 			return;
@@ -151,6 +172,7 @@ public class Main : MonoBehaviour
 		}
 		playerY++;
 		isMove = true;
+		anim.Play (upAnimation);
 		player.transform.DOMoveY (player.transform.position.y + tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));
@@ -168,6 +190,7 @@ public class Main : MonoBehaviour
 		}
 		playerY--;
 		isMove = true;
+		anim.Play (downAnimation);
 		player.transform.DOMoveY (player.transform.position.y - tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));
@@ -185,6 +208,7 @@ public class Main : MonoBehaviour
 		}
 		playerX--;
 		isMove = true;
+		anim.Play (leftAnimation);
 		player.transform.DOMoveX (player.transform.position.x - tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));
@@ -202,6 +226,7 @@ public class Main : MonoBehaviour
 		}
 		playerX++;
 		isMove = true;
+		anim.Play (rightAnimation);
 		player.transform.DOMoveX (player.transform.position.x + tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));
