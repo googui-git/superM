@@ -12,16 +12,18 @@ public class Main : MonoBehaviour
 	private float speed = 0.5f;
 	public bool isMove = false;
 
+	public GameObject bulletPrefab;
 	public GameObject stonePrefab;
 	public GameObject woodPrefab;
 	public GameObject[] bgTile;
 
-	Animator anim;
+	private Animator anim;
 	private int upAnimation = Animator.StringToHash ("player_up");
 	private int downAnimation = Animator.StringToHash ("player_down");
 	private int leftAnimation = Animator.StringToHash ("player_left");
 	private int rightAnimation = Animator.StringToHash ("player_right");
 	private int playAnimation;
+	private int direction = 1;
 
 	private static Text log;
 	private int playerX;
@@ -149,13 +151,13 @@ public class Main : MonoBehaviour
 	public void Joystick (Vector2 axis)
 	{
 		Debug.Log (axis);
-		if (axis.y > 0 && Mathf.Abs(axis.y) > Mathf.Abs(axis.x)) {
+		if (axis.y > 0 && Mathf.Abs (axis.y) > Mathf.Abs (axis.x)) {
 			MoveUp ();
-		} else if (axis.y < 0 && Mathf.Abs(axis.y) > Mathf.Abs(axis.x)) {
+		} else if (axis.y < 0 && Mathf.Abs (axis.y) > Mathf.Abs (axis.x)) {
 			MoveDown ();
-		} else if (axis.x < 0 && Mathf.Abs(axis.y) < Mathf.Abs(axis.x)) {
+		} else if (axis.x < 0 && Mathf.Abs (axis.y) < Mathf.Abs (axis.x)) {
 			MoveLeft ();
-		} else if (axis.x > 0 && Mathf.Abs(axis.y) < Mathf.Abs(axis.x)) {
+		} else if (axis.x > 0 && Mathf.Abs (axis.y) < Mathf.Abs (axis.x)) {
 			MoveRight ();
 		}
 	}
@@ -166,9 +168,10 @@ public class Main : MonoBehaviour
 			return;
 		}
 		char c = level [playerY + 1, playerX];
-		if (c == 's' || c == 'w') {
+		if (c == 's') {
 			return;
-			//Destroy (levelObj [playerY, playerX - 1]);
+		} else if (c == 'w') {
+			Destroy (levelObj [playerY + 1, playerX]);
 		}
 		playerY++;
 		isMove = true;
@@ -184,9 +187,10 @@ public class Main : MonoBehaviour
 			return;
 		}
 		char c = level [playerY - 1, playerX];
-		if (c == 's' || c == 'w') {
+		if (c == 's') {
 			return;
-			//Destroy (levelObj [playerY, playerX - 1]);
+		} else if (c == 'w') {
+			Destroy (levelObj [playerY - 1, playerX]);
 		}
 		playerY--;
 		isMove = true;
@@ -202,12 +206,14 @@ public class Main : MonoBehaviour
 			return;
 		}
 		char c = level [playerY, playerX - 1];
-		if (c == 's' || c == 'w') {
+		if (c == 's') {
 			return;
-			//Destroy (levelObj [playerY, playerX - 1]);
+		} else if (c == 'w') {
+			Destroy (levelObj [playerY, playerX - 1]);
 		}
 		playerX--;
 		isMove = true;
+		direction = -1;
 		anim.Play (leftAnimation);
 		player.transform.DOMoveX (player.transform.position.x - tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
@@ -220,16 +226,28 @@ public class Main : MonoBehaviour
 			return;
 		}
 		char c = level [playerY, playerX + 1];
-		if (c == 's' || c == 'w') {
+		if (c == 's') {
 			return;
-			//Destroy (levelObj [playerY, playerX - 1]);
+		} else if (c == 'w') {
+			Destroy (levelObj [playerY, playerX + 1]);
 		}
 		playerX++;
 		isMove = true;
+		direction = 1;
 		anim.Play (rightAnimation);
 		player.transform.DOMoveX (player.transform.position.x + tileSize, speed).SetEase (Ease.Linear).OnComplete (new TweenCallback (delegate() {
 			isMove = false;
 		}));
+	}
+
+	public void Fire ()
+	{
+		GameObject bulletGO = Instantiate (bulletPrefab) as GameObject;
+		CollisionDetector collisionDetector = bulletGO.GetComponent<CollisionDetector> ();
+		collisionDetector.speed = Mathf.Round (3f) + 1f;
+		collisionDetector.direction.Set (direction, 1);
+		bulletGO.transform.position = player.transform.position + new Vector3 (tileSize / 2 * direction, 0f, 0f);
+		bulletGO.SetActive (true);
 	}
 
 	public void setLog (string text)

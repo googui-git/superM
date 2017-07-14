@@ -4,13 +4,13 @@ using DG.Tweening;
 
 public class CollisionDetector : MonoBehaviour
 {
-	private float speed = 5f;
+
+	public Vector2 direction = new Vector2 (-1f, 1f);
+	public float speed = 5f;
+
 	private Vector2 startPointX;
 	private Vector2 startPointY;
-
 	private float radius;
-	private Vector2 direction = new Vector2 (-1f, 1f);
-
 	private bool isMove = false;
 
 	void Start ()
@@ -30,6 +30,11 @@ public class CollisionDetector : MonoBehaviour
 		Debug.DrawRay (startPointY, direction * 10f, Color.red);
 
 		Move ();
+
+		float ss = Vector2.Distance (Main.Instance.player.transform.position, transform.position);
+		if (ss < 0.3f) {
+			Destroy (gameObject);
+		}
 	}
 
 	void Move ()
